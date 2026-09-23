@@ -211,6 +211,17 @@ flowchart LR
 - [ ] Docker 开发环境与一键启动
 - [ ] 可选的 PostgreSQL 存储适配
 
+## 开发端口约定
+
+本地开发统一使用以下端口：
+
+| 服务 | 端口 | 地址 |
+| --- | ---: | --- |
+| React / Vite 前端 | `3090` | `http://127.0.0.1:3090` |
+| FastAPI 后端 | `3099` | `http://127.0.0.1:3099` |
+
+前端通过 Vite Proxy 将 `/api/v1` 转发到 `http://127.0.0.1:3099`。完整约定、环境变量和联调命令见 [开发环境与端口约定](./docs/DEVELOPMENT.md)。
+
 ## 配置约定
 
 后续实现将使用环境变量管理敏感配置，预计包括：
@@ -219,6 +230,9 @@ flowchart LR
 DEEPSEEK_API_KEY=your_api_key
 DEEPSEEK_BASE_URL=https://api.deepseek.com
 DEEPSEEK_MODEL=deepseek-chat
+DSH_HOST=127.0.0.1
+DSH_PORT=3099
+DSH_CORS_ORIGINS=http://127.0.0.1:3090
 DSH_WORKSPACE=/absolute/path/to/workspace
 DSH_DATABASE_URL=sqlite:///./dsh-lite.db
 DSH_MAX_AGENT_STEPS=30
@@ -255,6 +269,7 @@ DSH_MAX_AGENT_STEPS=30
 
 ## 相关文档
 
+- [开发环境与端口约定](./docs/DEVELOPMENT.md)
 - [后端说明](./server/README.md)
 - [后端 TODO](./server/TODO.md)
 - [前端说明](./website/README.md)

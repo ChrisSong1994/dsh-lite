@@ -244,7 +244,8 @@ DEEPSEEK_API_KEY=your_api_key
 DEEPSEEK_BASE_URL=https://api.deepseek.com
 DEEPSEEK_MODEL=deepseek-chat
 DSH_HOST=127.0.0.1
-DSH_PORT=8000
+DSH_PORT=3099
+DSH_CORS_ORIGINS=http://127.0.0.1:3090
 DSH_WORKSPACE=/absolute/path/to/workspace
 DSH_DATABASE_URL=sqlite+aiosqlite:///./dsh-lite.db
 DSH_MAX_AGENT_STEPS=30
@@ -260,7 +261,7 @@ DSH_LOG_LEVEL=INFO
 
 ```bash
 uv sync --all-groups
-uv run uvicorn app.main:app --reload --port 8000
+uv run uvicorn app.main:app --reload --host 127.0.0.1 --port 3099
 uv run pytest
 uv run ruff check .
 uv run ruff format --check .
@@ -268,7 +269,7 @@ uv run mypy app
 uv run alembic upgrade head
 ```
 
-OpenAPI 文档默认位于 `http://127.0.0.1:8000/docs`，健康检查位于 `http://127.0.0.1:8000/healthz`。
+OpenAPI 文档默认位于 `http://127.0.0.1:3099/docs`，健康检查位于 `http://127.0.0.1:3099/healthz`。
 
 ## 设计原则
 
@@ -281,6 +282,7 @@ OpenAPI 文档默认位于 `http://127.0.0.1:8000/docs`，健康检查位于 `ht
 
 ## 相关文档
 
+- [开发环境与端口约定](../docs/DEVELOPMENT.md)
 - [后端 TODO](./TODO.md)
 - [前端说明](../website/README.md)
 - [项目说明](../README.md)
