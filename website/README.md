@@ -120,7 +120,7 @@ website/
 
 ## 后端接口约定
 
-前端默认请求 `/api/v1`，开发环境由 Vite Proxy 转发到 FastAPI。核心接口包括：
+前端默认请求 `/api/v1`，开发环境由 Vite Proxy 转发到 `http://127.0.0.1:3099`。Vite 开发服务器约定端口为 `3090`。核心接口包括：
 
 ```text
 GET    /healthz
@@ -186,7 +186,9 @@ react-markdown
 前端只允许暴露非敏感配置，统一使用 `VITE_` 前缀：
 
 ```dotenv
+VITE_PORT=3090
 VITE_API_BASE_URL=/api/v1
+VITE_DEV_PROXY_TARGET=http://127.0.0.1:3099
 VITE_SSE_RECONNECT_MAX_RETRIES=5
 VITE_MERMAID_ENABLED=true
 ```
@@ -199,7 +201,7 @@ VITE_MERMAID_ENABLED=true
 
 ```bash
 pnpm install
-pnpm dev
+pnpm dev --host 127.0.0.1 --port 3090
 pnpm build
 pnpm preview
 pnpm lint
@@ -235,6 +237,7 @@ pnpm test:e2e
 
 ## 相关文档
 
+- [开发环境与端口约定](../docs/DEVELOPMENT.md)
 - [前端 TODO](./TODO.md)
 - [后端说明](../server/README.md)
 - [项目说明](../README.md)
