@@ -6,26 +6,26 @@ DSH Lite 的 React 前端工作台，负责会话管理、Agent 消息流展示�
 
 ## 技术栈
 
-| 领域 | 选型 | 用途 |
-| --- | --- | --- |
-| 构建工具 | Vite 8 | 开发服务器、生产构建和资源优化 |
-| UI 框架 | React 19 + TypeScript | 组件、类型安全和并发渲染 |
-| 路由 | React Router | 嵌套路由、数据路由、参数和导航 |
-| 服务端状态 | TanStack Query | API 缓存、请求去重、重试和失效更新 |
-| 客户端状态 | Zustand | 会话草稿、面板状态、临时 UI 状态 |
-| 表单与校验 | React Hook Form + Zod | 设置表单、运行时校验和类型推导 |
-| 样式 | Tailwind CSS + CSS Variables | 设计令牌、响应式布局和主题 |
-| 基础组件 | Radix UI Primitives | 无障碍 Dialog、Popover、Tooltip 等 |
-| 图标 | Lucide React | 统一图标 |
-| Markdown | react-markdown + remark + rehype | 助手消息、说明和富文本渲染 |
-| 代码高亮 | Shiki | 构建时/运行时高亮，避免直接注入 HTML |
-| 数学公式 | remark-math + rehype-katex | Markdown 中的 LaTeX 公式 |
-| 图表 | Mermaid（按需加载） | 渲染 Mermaid 代码块 |
-| 流式通信 | Fetch SSE / `@microsoft/fetch-event-source` | 消费 Agent 运行事件 |
-| 长列表 | TanStack Virtual | 长会话和大型工具输出虚拟化 |
-| 单元测试 | Vitest + Testing Library + MSW | 组件、Hook 和 API 行为测试 |
-| 端到端测试 | Playwright | 核心用户流程验证 |
-| 代码质量 | ESLint + Prettier + TypeScript | 静态检查、格式化和类型检查 |
+| 领域       | 选型                                        | 用途                                 |
+| ---------- | ------------------------------------------- | ------------------------------------ |
+| 构建工具   | Vite 8                                      | 开发服务器、生产构建和资源优化       |
+| UI 框架    | React 19 + TypeScript                       | 组件、类型安全和并发渲染             |
+| 路由       | React Router                                | 嵌套路由、数据路由、参数和导航       |
+| 服务端状态 | TanStack Query                              | API 缓存、请求去重、重试和失效更新   |
+| 客户端状态 | Zustand                                     | 会话草稿、面板状态、临时 UI 状态     |
+| 表单与校验 | React Hook Form + Zod                       | 设置表单、运行时校验和类型推导       |
+| 样式       | Tailwind CSS + CSS Variables                | 设计令牌、响应式布局和主题           |
+| 基础组件   | Radix UI Primitives                         | 无障碍 Dialog、Popover、Tooltip 等   |
+| 图标       | Lucide React                                | 统一图标                             |
+| Markdown   | react-markdown + remark + rehype            | 助手消息、说明和富文本渲染           |
+| 代码高亮   | Shiki                                       | 构建时/运行时高亮，避免直接注入 HTML |
+| 数学公式   | remark-math + rehype-katex                  | Markdown 中的 LaTeX 公式             |
+| 图表       | Mermaid（按需加载）                         | 渲染 Mermaid 代码块                  |
+| 流式通信   | Fetch SSE / `@microsoft/fetch-event-source` | 消费 Agent 运行事件                  |
+| 长列表     | TanStack Virtual                            | 长会话和大型工具输出虚拟化           |
+| 单元测试   | Vitest + Testing Library + MSW              | 组件、Hook 和 API 行为测试           |
+| 端到端测试 | Playwright                                  | 核心用户流程验证                     |
+| 代码质量   | ESLint + Prettier + TypeScript              | 静态检查、格式化和类型检查           |
 
 Node.js 建议使用当前 LTS，包管理器统一使用 pnpm。项目初始化时通过 `pnpm create vite@latest . --template react-ts` 创建 Vite 8 工程，并锁定 `pnpm-lock.yaml`。
 
@@ -86,16 +86,16 @@ website/
 
 ## 路由规划
 
-| 路径 | 页面 | 说明 |
-| --- | --- | --- |
-| `/` | 首页 | 重定向到最近会话或空状态 |
-| `/chat` | 新会话 | 创建并进入一次新会话 |
-| `/chat/:sessionId` | 会话工作台 | 消息、运行状态和工具交互 |
-| `/sessions` | 历史会话 | 搜索、筛选和删除会话 |
-| `/settings` | 设置 | 模型、工作区、主题和快捷键 |
-| `/settings/models` | 模型设置 | Provider、模型和生成参数 |
-| `/settings/workspace` | 工作区设置 | 根目录、权限和忽略规则 |
-| `*` | 404 | 未找到页面 |
+| 路径                  | 页面       | 说明                       |
+| --------------------- | ---------- | -------------------------- |
+| `/`                   | 首页       | 重定向到最近会话或空状态   |
+| `/chat`               | 新会话     | 创建并进入一次新会话       |
+| `/chat/:sessionId`    | 会话工作台 | 消息、运行状态和工具交互   |
+| `/sessions`           | 历史会话   | 搜索、筛选和删除会话       |
+| `/settings`           | 设置       | 模型、工作区、主题和快捷键 |
+| `/settings/models`    | 模型设置   | Provider、模型和生成参数   |
+| `/settings/workspace` | 工作区设置 | 根目录、权限和忽略规则     |
+| `*`                   | 404        | 未找到页面                 |
 
 路由使用 React Router 的 data router 模式，页面级数据预取由 `loader` 或 TanStack Query 统一承担，不在组件中散落请求逻辑。
 
@@ -103,13 +103,13 @@ website/
 
 前端状态按来源拆分，避免把所有内容塞进一个全局 Store：
 
-| 状态类型 | 方案 | 示例 |
-| --- | --- | --- |
-| 服务端状态 | TanStack Query | 会话列表、消息、运行记录、设置 |
-| 实时流状态 | Query Cache + 专用事件 Reducer | 文本增量、工具事件、连接状态 |
-| 全局客户端状态 | Zustand | 侧栏、主题、当前面板、未提交输入 |
-| 页面局部状态 | React state | 弹窗开关、临时筛选、表单焦点 |
-| URL 状态 | React Router | 会话 ID、筛选条件、标签页 |
+| 状态类型       | 方案                           | 示例                             |
+| -------------- | ------------------------------ | -------------------------------- |
+| 服务端状态     | TanStack Query                 | 会话列表、消息、运行记录、设置   |
+| 实时流状态     | Query Cache + 专用事件 Reducer | 文本增量、工具事件、连接状态     |
+| 全局客户端状态 | Zustand                        | 侧栏、主题、当前面板、未提交输入 |
+| 页面局部状态   | React state                    | 弹窗开关、临时筛选、表单焦点     |
+| URL 状态       | React Router                   | 会话 ID、筛选条件、标签页        |
 
 原则：
 
@@ -139,14 +139,20 @@ SSE 事件统一使用可判别联合类型：
 
 ```ts
 type RunEvent =
-  | { type: "run_started"; runId: string }
-  | { type: "text_delta"; runId: string; delta: string }
-  | { type: "tool_call"; runId: string; callId: string; name: string; arguments: unknown }
-  | { type: "tool_result"; runId: string; callId: string; result: unknown; durationMs: number }
-  | { type: "approval_required"; runId: string; approvalId: string; toolName: string; arguments: unknown }
-  | { type: "usage"; runId: string; inputTokens: number; outputTokens: number }
-  | { type: "run_completed"; runId: string }
-  | { type: "run_failed"; runId: string; error: { code: string; message: string } };
+  | { type: 'run_started'; runId: string }
+  | { type: 'text_delta'; runId: string; delta: string }
+  | { type: 'tool_call'; runId: string; callId: string; name: string; arguments: unknown }
+  | { type: 'tool_result'; runId: string; callId: string; result: unknown; durationMs: number }
+  | {
+      type: 'approval_required'
+      runId: string
+      approvalId: string
+      toolName: string
+      arguments: unknown
+    }
+  | { type: 'usage'; runId: string; inputTokens: number; outputTokens: number }
+  | { type: 'run_completed'; runId: string }
+  | { type: 'run_failed'; runId: string; error: { code: string; message: string } }
 ```
 
 事件消费要求：
