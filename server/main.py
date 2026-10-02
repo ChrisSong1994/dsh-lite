@@ -1,5 +1,17 @@
+import logging
+
 from fastapi import FastAPI
 import uvicorn
+
+from config.inital import AppConfig
+
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s | %(levelname)s | %(name)s | %(message)s",
+)
+
+AppConfig.boost()
 
 app = FastAPI(
     title="DSH Lite Server",
